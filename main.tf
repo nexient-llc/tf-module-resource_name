@@ -1,11 +1,24 @@
 locals {
   logical_product_name = trimspace(var.logical_product_name)
-  region               = trimspace(var.region)
+  region               = var.use_region_abbr ? lookup(local.region_abbr_map, lower(trimspace(var.region)), trimspace(var.region)) : trimspace(var.region)
   class_env            = trimspace(var.class_env)
   cloud_resource_type  = trimspace(var.cloud_resource_type)
 
   instance_resource = format("%03d", var.instance_resource)
   instance_env      = format("%03d", var.instance_env)
+
+
+  region_abbr_map = {
+    eastus         = "eus"
+    westus         = "wus"
+    eastus2        = "eus2"
+    westus2        = "wus2"
+    centralus      = "cus"
+    northcentralus = "ncus"
+    southcentralus = "scus"
+    westcentralus  = "wcus"
+  }
+
 
   variable_list = [local.logical_product_name, local.region, local.class_env, local.instance_env, local.cloud_resource_type, local.instance_resource]
 }
