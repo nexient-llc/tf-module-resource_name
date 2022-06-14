@@ -1,6 +1,6 @@
 locals {
   logical_product_name = trimspace(var.logical_product_name)
-  region               = var.use_region_abbr ? lookup(local.region_abbr_map, lower(trimspace(var.region)), trimspace(var.region)) : trimspace(var.region)
+  region               = var.use_azure_region_abbr ? lookup(local.azure_region_abbr_map, lower(trimspace(var.region)), trimspace(var.region)) : trimspace(var.region)
   class_env            = trimspace(var.class_env)
   cloud_resource_type  = trimspace(var.cloud_resource_type)
 
@@ -8,7 +8,7 @@ locals {
   instance_env      = format("%03d", var.instance_env)
 
 
-  region_abbr_map = {
+  azure_region_abbr_map = {
     eastus         = "eus"
     westus         = "wus"
     eastus2        = "eus2"
