@@ -107,5 +107,11 @@ variable "separator" {
   }
 }
 
+variable "use_azure_region_abbr" {
+  description = "Whether to use Azure region abbreviation e.g. eastus -> eus"
+  type = bool
+  default = false
+}
+
 
 
