@@ -102,7 +102,7 @@ func TestTerraformResourcenameExample_minLength(t *testing.T) {
 
 	recommended_per_length_restriction := terraform.Output(t, terraformOptions, "recommended_per_length_restriction")
 
-	assert.Equal(t, recommended_per_length_restriction, "invoicidev100sa001")
+	assert.Equal(t, recommended_per_length_restriction, "invoiciwestusdev100sa001")
 }
 
 func TestTerraformResourcenameExample_maxLength(t *testing.T) {
