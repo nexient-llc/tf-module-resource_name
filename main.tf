@@ -43,8 +43,9 @@ locals {
 
   # If standard output length if greater than maximum length provided by user, then output for the user is created using maximum length specified by the user.
   # For that strip off region from the output. Also restrict the logical_product_name so that total length of the output is same as maximum length.
-  recommended_per_length_restriction = length(local.standard) > var.maximum_length ? format("%s%s%s%s%s",
+  recommended_per_length_restriction = length(local.standard) > var.maximum_length ? format("%s%s%s%s%s%s",
     substr(local.logical_product_name, 0, var.maximum_length - local.length_of_variable_list_without_product_name),
+    local.region,
     local.class_env,
     local.instance_env,
     local.cloud_resource_type,
