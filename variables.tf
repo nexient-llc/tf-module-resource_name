@@ -2,23 +2,12 @@ variable "logical_product_name" {
   type        = string
   description = "(Required) Name of the application for which the resource is created."
   nullable    = false
-
-  validation {
-    condition     = length(trimspace(var.logical_product_name)) <= 15 && length(trimspace(var.logical_product_name)) > 0
-    error_message = "Length of the logical product name must be between 1 to 15 characters."
-  }
 }
 
 variable "region" {
   type        = string
   description = "(Required) The location where the resource will be created."
   nullable    = false
-
-  validation {
-    condition     = length(trimspace(var.region)) <= 10 && length(trimspace(var.region)) > 0
-    error_message = "Length of the region must be between 1 to 10 characters."
-  }
-
 
   validation {
     condition     = length(regexall("\\b \\b", var.region)) == 0
@@ -30,11 +19,6 @@ variable "class_env" {
   type        = string
   description = "(Required) Environment where resource is going to be deployed. For ex. dev, qa, uat"
   nullable    = false
-
-  validation {
-    condition     = length(trimspace(var.class_env)) <= 15 && length(trimspace(var.class_env)) > 0
-    error_message = "Length of the environment must be between 1 to 15 characters."
-  }
 
   validation {
     condition     = length(regexall("\\b \\b", var.class_env)) == 0
@@ -59,11 +43,6 @@ variable "cloud_resource_type" {
   nullable    = false
 
   validation {
-    condition     = length(trimspace(var.cloud_resource_type)) <= 8 && length(trimspace(var.cloud_resource_type)) > 0
-    error_message = "Length of the cloud_resource_type must be between 1 to 8 characters."
-  }
-
-  validation {
     condition     = length(regexall("\\b \\b", var.cloud_resource_type)) == 0
     error_message = "Spaces between the words are not allowed."
   }
@@ -86,7 +65,7 @@ variable "maximum_length" {
   default     = 60
 
   validation {
-    condition     = var.maximum_length >= 24 && var.maximum_length <= 512
+    condition     = var.maximum_length >= 10 && var.maximum_length <= 512
     error_message = "Maximum length number should be between 24 to 512."
   }
 }
@@ -109,9 +88,6 @@ variable "separator" {
 
 variable "use_azure_region_abbr" {
   description = "Whether to use Azure region abbreviation e.g. eastus -> eus"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
-
-
-
