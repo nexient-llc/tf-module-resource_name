@@ -8,7 +8,7 @@ resource "random_integer" "random_number" {
 locals {
   logical_product_family  = trimspace(var.logical_product_family)
   logical_product_service = trimspace(var.logical_product_service)
-  region                  = var.use_azure_region_abbr ? lookup(local.azure_region_abbr_map, lower(trimspace(var.region)), trimspace(var.region)) : join("", split("-", var.region))
+  region                  = var.use_azure_region_abbr ? lookup(local.azure_region_abbr_map, lower(trimspace(var.region)), trimspace(var.region)) : join("", split("-", trimspace(var.region)))
   class_env               = trimspace(var.class_env)
   cloud_resource_type     = trimspace(var.cloud_resource_type)
 
@@ -38,6 +38,14 @@ locals {
     local.instance_resource
   ]
 
+  minimal_variable_list = [
+    local.logical_product_family,
+    local.logical_product_service,
+    local.class_env,
+    local.instance_env,
+    local.cloud_resource_type
+  ]
+
 }
 
 locals {
@@ -55,13 +63,14 @@ locals {
 }
 
 locals {
-  standard = lower(join(var.separator, local.variable_list))
+  minimal_random_variable_list = [local.logical_product_family, local.logical_product_service, random_integer.random_number.id]
+  standard                     = lower(join(var.separator, local.variable_list))
   # will remove any . or _ with a -. We don't want . as it will be parsed as unintended subdomains.
   dns_compliant_standard         = replace(local.standard, "/[-_.]{1}/", "-")
-  minimal                        = lower(join(var.separator, [local.logical_product_family, local.logical_product_service, local.class_env, local.instance_env, local.cloud_resource_type]))
+  minimal                        = lower(join(var.separator, local.minimal_variable_list))
   minimal_without_any_separators = replace(local.minimal, "/[-_.]{1}/", "")
   # Appends a 10 digit random number to the local.minimal and then trims it from the right until its under maximum_length limit.
-  minimal_random_suffix               = trimsuffix(substr(lower(join(var.separator, [local.logical_product_family, local.logical_product_service, random_integer.random_number.id])), 0, tonumber(var.maximum_length) - 1), var.separator)
+  minimal_random_suffix               = trimsuffix(substr(lower(join(var.separator, local.minimal_random_variable_list)), 0, tonumber(var.maximum_length) - 1), var.separator)
   dns_compliant_minimal               = replace(local.minimal, "/[-_.]{1}/", "-")
   dns_compliant_minimal_random_suffix = replace(local.minimal_random_suffix, "_", "-")
 }
