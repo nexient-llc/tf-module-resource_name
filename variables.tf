@@ -1,12 +1,37 @@
-variable "logical_product_name" {
+variable "logical_product_family" {
   type        = string
-  description = "(Required) Name of the application for which the resource is created."
+  description = <<EOF
+    (Required) Name of the product family for which the resource is created.
+    Example: org_name, department_name.
+  EOF
   nullable    = false
+
+  validation {
+    condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_family))
+    error_message = "The variable must contain letters, numbers, -, _, and .."
+  }
+}
+
+variable "logical_product_service" {
+  type        = string
+  description = <<EOF
+    (Required) Name of the product service for which the resource is created.
+    For example, backend, frontend, middleware etc.
+  EOF
+  nullable    = false
+
+  validation {
+    condition     = can(regex("^[_\\-A-Za-z0-9]+$", var.logical_product_service))
+    error_message = "The variable must contain letters, numbers, -, _, and .."
+  }
 }
 
 variable "region" {
   type        = string
-  description = "(Required) The location where the resource will be created."
+  description = <<EOF
+    (Required) The location where the resource will be created. Must not have spaces
+    For example, us-east-2, useast2, West-US-2
+  EOF
   nullable    = false
 
   validation {
@@ -17,7 +42,7 @@ variable "region" {
 
 variable "class_env" {
   type        = string
-  description = "(Required) Environment where resource is going to be deployed. For ex. dev, qa, uat"
+  description = "(Required) Environment where resource is going to be deployed. For example. dev, qa, uat"
   nullable    = false
 
   validation {
@@ -45,6 +70,10 @@ variable "cloud_resource_type" {
   validation {
     condition     = length(regexall("\\b \\b", var.cloud_resource_type)) == 0
     error_message = "Spaces between the words are not allowed."
+  }
+  validation {
+    condition     = can(regex("^[A-Za-z0-9]+$", var.cloud_resource_type))
+    error_message = "The variable must contain letters and numbers."
   }
 }
 
