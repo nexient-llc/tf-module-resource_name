@@ -121,8 +121,8 @@ If `make check` target is successful, developer is good to commit the code to pr
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | 3.5.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.0, <= 1.5.5 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.5 |
 
 ## Providers
 
@@ -138,7 +138,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [random_integer.random_number](https://registry.terraform.io/providers/hashicorp/random/3.5.1/docs/resources/integer) | resource |
+| [random_integer.random_number](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer) | resource |
 
 ## Inputs
 
@@ -173,5 +173,6 @@ No modules.
 | <a name="output_minimal"></a> [minimal](#output\_minimal) | Name of the resource would exclude region, instance\_resource |
 | <a name="output_minimal_random_suffix"></a> [minimal\_random\_suffix](#output\_minimal\_random\_suffix) | Name of the resource would exclude region, instance\_resource and append a random number suffix. This supports max\_length restriction |
 | <a name="output_dns_compliant_minimal"></a> [dns\_compliant\_minimal](#output\_dns\_compliant\_minimal) | Name is minimal and DNS complaint, that is it can contain only -. |
+| <a name="output_dns_compliant_standard"></a> [dns\_compliant\_standard](#output\_dns\_compliant\_standard) | Name is standard and DNS complaint, that is it can contain only -. |
 | <a name="output_dns_compliant_minimal_random_suffix"></a> [dns\_compliant\_minimal\_random\_suffix](#output\_dns\_compliant\_minimal\_random\_suffix) | Name is minimal\_random\_suffix and DNS complaint, that is it can contain only -. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
