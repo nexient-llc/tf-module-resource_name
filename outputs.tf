@@ -80,6 +80,11 @@ output "minimal_random_suffix" {
   description = "Name of the resource would exclude region, instance_resource and append a random number suffix. This supports max_length restriction"
 }
 
+output "minimal_random_suffix_without_any_separators" {
+  value       = local.minimal_random_suffix_without_any_separators
+  description = "Name of the resource would exclude region, instance_resource and append a random number suffix. This supports max_length restriction and will remove any separators present in any fields as well."
+}
+
 output "dns_compliant_minimal" {
   value       = local.dns_compliant_minimal
   description = "Name is minimal and DNS complaint, that is it can contain only -."
