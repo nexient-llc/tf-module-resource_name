@@ -128,7 +128,7 @@ If `make check` target is successful, developer is good to commit the code to pr
 
 | Name | Version |
 |------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.0 |
 
 ## Modules
 
@@ -172,6 +172,7 @@ No modules.
 | <a name="output_camel_case_with_separator"></a> [camel\_case\_with\_separator](#output\_camel\_case\_with\_separator) | Name of the resource in camel case and separator. If separator is not provided by user, then '-' character will be used as a separator. |
 | <a name="output_minimal"></a> [minimal](#output\_minimal) | Name of the resource would exclude region, instance\_resource |
 | <a name="output_minimal_random_suffix"></a> [minimal\_random\_suffix](#output\_minimal\_random\_suffix) | Name of the resource would exclude region, instance\_resource and append a random number suffix. This supports max\_length restriction |
+| <a name="output_minimal_random_suffix_without_any_separators"></a> [minimal\_random\_suffix\_without\_any\_separators](#output\_minimal\_random\_suffix\_without\_any\_separators) | Name of the resource would exclude region, instance\_resource and append a random number suffix. This supports max\_length restriction and will remove any separators present in any fields as well. |
 | <a name="output_dns_compliant_minimal"></a> [dns\_compliant\_minimal](#output\_dns\_compliant\_minimal) | Name is minimal and DNS complaint, that is it can contain only -. |
 | <a name="output_dns_compliant_standard"></a> [dns\_compliant\_standard](#output\_dns\_compliant\_standard) | Name is standard and DNS complaint, that is it can contain only -. |
 | <a name="output_dns_compliant_minimal_random_suffix"></a> [dns\_compliant\_minimal\_random\_suffix](#output\_dns\_compliant\_minimal\_random\_suffix) | Name is minimal\_random\_suffix and DNS complaint, that is it can contain only -. |
