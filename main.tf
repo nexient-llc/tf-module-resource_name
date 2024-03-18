@@ -56,6 +56,12 @@ locals {
     local.cloud_resource_type
   ]
 
+  minimal_random_variable_list = [local.logical_product_family,
+    local.logical_product_service,
+    random_integer.random_number.id
+  ]
+
+
 }
 
 locals {
@@ -73,16 +79,25 @@ locals {
 }
 
 locals {
-  minimal_random_variable_list = [local.logical_product_family, local.logical_product_service, random_integer.random_number.id]
-  standard                     = lower(join(var.separator, local.variable_list))
+  standard = lower(join(var.separator, local.variable_list))
   # will remove any . or _ with a -. We don't want . as it will be parsed as unintended subdomains.
-  dns_compliant_standard         = replace(local.standard, "/[-_.]{1}/", "-")
+
   minimal                        = lower(join(var.separator, local.minimal_variable_list))
   minimal_without_any_separators = replace(local.minimal, "/[-_.]{1}/", "")
-  # Appends a 10 digit random number to the local.minimal and then trims it from the right until its under maximum_length limit.
-  minimal_random_suffix               = trimsuffix(substr(lower(join(var.separator, local.minimal_random_variable_list)), 0, tonumber(var.maximum_length) - 1), var.separator)
+
+  minimal_random                        = lower(join(var.separator, local.minimal_random_variable_list))
+  minimal_random_without_any_separators = replace(local.minimal_random, "/[-_.]{1}/", "")
+
+  dns_compliant_standard              = replace(local.standard, "/[-_.]{1}/", "-")
   dns_compliant_minimal               = replace(local.minimal, "/[-_.]{1}/", "-")
   dns_compliant_minimal_random_suffix = replace(local.minimal_random_suffix, "_", "-")
+
+  # Appends a 10 digit random number to the local.minimal_random_variable_list and then trims it from the right until its under maximum_length limit.
+  minimal_random_suffix = trimsuffix(substr(lower(join(var.separator, local.minimal_random_variable_list)), 0, tonumber(var.maximum_length) - 1), var.separator)
+
+  # Appends a 10 digit random number to the local.minimal_random_variable_list and then trims it from the right until its under maximum_length limit. This variable removes any separators present in any fields as well.
+  minimal_random_suffix_without_any_separators = trimsuffix(substr(local.minimal_random_without_any_separators, 0, tonumber(var.maximum_length) - 1), var.separator)
+
 }
 
 locals {
